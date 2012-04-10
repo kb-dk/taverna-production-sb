@@ -18,14 +18,16 @@ function succesesAtStage {
 
 
 for i in {1..6}; do \
-	echo "Total succes to at stage $i=`succesesAtStage $i`"
-	echo "Total errors to at stage $i=`errorsAtStage $i`"
+	echo "Stage $i"
+	echo "Total succes `succesesAtStage $i`"
+	echo "Total errors `errorsAtStage $i`"
+	echo
 done
 
 START=`$LS $WORKDIR 2> /dev/null | grep ffprobeFile | sed -e 's/ \+/ /g' | cut -d' ' -f6,7`
 echo "Ingest started at $START"
 
-NEWEST=`$LS $WORKDIR/publishedPids 2> /dev/null |sed -e 's/ \+/ /g' | cut -d' ' -f6,7 | sort| tail -1`
+NEWEST=`$LS $WORKDIR/6_* 2> /dev/null |sed -e 's/ \+/ /g' | cut -d' ' -f6,7 | sort| tail -1`
 echo "newest file through $NEWEST"
 
 #rm $WORKDIR/failedProbes.txt 2> /dev/null 
