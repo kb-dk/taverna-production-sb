@@ -17,9 +17,14 @@ function succesesAtStage {
 }
 
 
-for i in {1..10}; do \
+for i in {10..99}; do \
+	dir=`ls -d $WORKDIR/${i}_* 2> /dev/null`
+	if [ ! -d $dir ]
+	then 
+		continue
+	fi
+	file=`basename $dir`
 	echo "Stage $i"
-	basename `ls -d $WORKDIR/${i}_*`
 	succesesAtStage $i
 	echo "Total succes $_RET"
 	errorsAtStage $i
