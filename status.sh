@@ -5,22 +5,26 @@ WORKDIR=$1
 LS="ls -l --time-style=long-iso"
 
 function errorsAtStage {
-	STAGE=$1
-	ERRORS=`$LS $WORKDIR/$STAGE_*/*.error 2> /dev/null | wc -l`
-	echo $ERRORS
+	local STAGE=$1
+	local ERRORS=`$LS $WORKDIR/${STAGE}_*/*.error 2> /dev/null | wc -l`
+	_RET=$ERRORS
 }
 
 function succesesAtStage {
-	STAGE=$1
-	SUCCES=`$LS $WORKDIR/$STAGE_*/* 2> /dev/null | grep -v error| wc -l`
-	echo $SUCCES
+	local STAGE=$1
+	local SUCCES=`$LS $WORKDIR/${STAGE}_*/* 2> /dev/null | grep -v error| wc -l`
+	_RET=$SUCCES
 }
 
 
 for i in {1..6}; do \
 	echo "Stage $i"
-	echo "Total succes `succesesAtStage $i`"
-	echo "Total errors `errorsAtStage $i`"
+	basename `ls -d $WORKDIR/${i}_*`
+	succesesAtStage $i
+	echo "Total succes $_RET"
+	errorsAtStage $i
+	echo "Total errors $_RET"
+	_RET=0
 	echo
 done
 
