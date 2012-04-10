@@ -17,7 +17,7 @@ function succesesAtStage {
 }
 
 
-for i in {1..7}; do \
+for i in {1..10}; do \
 	echo "Stage $i"
 	basename `ls -d $WORKDIR/${i}_*`
 	succesesAtStage $i
@@ -31,7 +31,7 @@ done
 START=`$LS $WORKDIR 2> /dev/null | grep ffprobeFile | sed -e 's/ \+/ /g' | cut -d' ' -f6,7`
 echo "Ingest started at $START"
 
-NEWEST=`$LS $WORKDIR/7_* 2> /dev/null |sed -e 's/ \+/ /g' | cut -d' ' -f6,7 | sort| tail -1`
+NEWEST=`$LS $WORKDIR/10_* 2> /dev/null |sed -e 's/ \+/ /g' | cut -d' ' -f6,7 | sort| tail -1`
 echo "newest file through $NEWEST"
 
 #rm $WORKDIR/failedProbes.txt 2> /dev/null 
