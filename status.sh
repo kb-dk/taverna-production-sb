@@ -4,7 +4,7 @@ WORKDIR=$1
 
 LS="ls -l --time-style=long-iso"
 
-TOTAL=`$LS $WORKDIR/ffprobeFile/ | wc -l`
+TOTAL=`$LS $WORKDIR/ffprobeFile/ 2> /dev/null| wc -l`
 echo "Total files to ingest=$TOTAL"
 
 
@@ -21,6 +21,7 @@ NEWEST=`$LS $WORKDIR/publishedPids 2> /dev/null |sed -e 's/ \+/ /g' | cut -d' ' 
 echo "newest file through $NEWEST"
 
 rm $WORKDIR/failedProbes.txt 2> /dev/null 
+touch $WORKDIR/failedProbes.txt 2> /dev/null 
 for error in $WORKDIR/publishedPids/*.error; do \
     ERR=`basename $error | cut -d'.' -f1`
    cat $WORKDIR/ffprobeFile/$ERR >> $WORKDIR/failedProbes.txt
