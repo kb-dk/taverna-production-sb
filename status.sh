@@ -19,7 +19,7 @@ function succesesAtStage {
 
 for i in {10..99}; do \
 	dir=`ls -d $WORKDIR/${i}_* 2> /dev/null`
-	if [ ! -d $dir ]
+	if [ $dir == "" ]
 	then 
 		continue
 	fi
