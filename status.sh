@@ -6,13 +6,13 @@ LS="ls -l --time-style=long-iso"
 
 function errorsAtStage {
 	local STAGE=$1
-	local ERRORS=`find $WORKDIR/${STAGE}_*/ -name *.error -type f 2> /dev/null | wc -l`
+	local ERRORS=`find $WORKDIR/${STAGE}_*/ -name *.error -maxdepth 1 2> /dev/null | wc -l`
 	_RET=$ERRORS
 }
 
 function succesesAtStage {
 	local STAGE=$1
-	local SUCCES=`find $WORKDIR/${STAGE}_*/ -type f 2> /dev/null | grep -v error| wc -l`
+	local SUCCES=`find $WORKDIR/${STAGE}_*/ -maxdepth 1 2> /dev/null | grep -v error| wc -l`
 	_RET=$SUCCES
 }
 
